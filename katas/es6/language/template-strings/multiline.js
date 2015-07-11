@@ -7,14 +7,14 @@ describe('template string, can be multiline', function() {
     var multiline = `line 1
     line 2
     line 3`;
-    assert.equal(multiline.split('\n').length, 4);
+    assert.equal(multiline.split('\n').length, 3);
   });
   
   it('with variable place holders and spaces matter', function() {
     var x = 42;
     var multiline = `line 1
         ${x}`;
-    assert.equal(multiline, 'line 1\n42');
+    assert.equal(multiline, 'line 1\n        42');
   });
   
 });
