@@ -65,7 +65,17 @@ const DEFAULT_PARAMETERS_BASICS = 57;
 const REFLECT_BASICS = 58;
 const REFLECT_APPLY = 59;
 const REFLECT_GET_PROTOTYPE_OF = 60;
+const MODULES_IMPORT = 61;
+const MAP_HAS = 62;
+const STRING_INCLUDES = 63;
+const SET_DELETE = 64;
+const SET_API = 65;
 
+const TAG_SPECIFICATION = 'spec';
+const TAG_MDN = 'mdn';
+const TAG_VIDEO = 'video';
+const TAG_ARTICLE = 'article';
+const TAG_DOCS = 'docs';
 export const all = {
   name: 'ES6 Katas',
   groups: {
@@ -347,7 +357,7 @@ export const all = {
         }
       }
     },
-    'Array API': {
+    'Array': {
       items: {
         [ARRAY_FROM]: {
           name: '`Array.from()`',
@@ -379,7 +389,8 @@ export const all = {
             documentation: [
               {
                 url: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/fill',
-                comment: 'API doc on MDN.'
+                comment: 'API doc on MDN.',
+                tags: [TAG_MDN, TAG_DOCS]
               }
             ]
           }
@@ -520,6 +531,25 @@ export const all = {
             ARRAY_FROM,
             MAP_BASICS, MAP_SET
           ]
+        },
+        [MAP_HAS]: {
+          name: '`map.has()`',
+          description: 'Indicates whether an element with a key exists.',
+          path: 'map/has',
+          level: SKILL_LEVEL.BEGINNER,
+          requiresKnowledgeFrom: [
+            LET,
+            MAP_BASICS,
+            MAP_SET
+            //MAP_DELETE
+          ],
+          links: {
+            various: {
+              url: 'https://www.youtube.com/watch?v=71aX1z0SzZU',
+              comment: 'A video (15min) documenting how this kata was created.',
+              tags: [TAG_VIDEO]
+            } 
+          }
         }
       }
     },
@@ -540,10 +570,64 @@ export const all = {
           requiresKnowledgeFrom: [
             SET_BASICS
           ]
+        },
+        [SET_DELETE]: {
+          name: '`set.delete()`',
+          description: 'Removes an element from a set.',
+          path: 'set/delete',
+          level: SKILL_LEVEL.BEGINNER,
+          requiresKnowledgeFrom: [
+            LET, CONST,
+            SET_BASICS,
+            SET_ADD
+          ]
+        },
+        [SET_API]: {
+          name: 'the API',
+          description: '`Set` API overview.',
+          path: 'set/api',
+          level: SKILL_LEVEL.BEGINNER,
+          requiresKnowledgeFrom: [
+            LET, CONST,
+            ARRAY_FROM,
+            SET_BASICS, SET_ADD, SET_DELETE,
+            // SET_SIZE, SET_CLEAR, SET_ENTRIES, SET_HAS, SET_KEYS, SET_VALUES, SET_ITERATOR
+            ARROW_FUNCTION_BASICS,
+            SPREAD_WITH_ARRAYS
+          ],
+          links: [
+            {
+              url: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set',
+              comment: '',
+              tags: [TAG_MDN, TAG_DOCS]
+            }
+          ]
         }
       }
     },
     'Generator': {
+      links: [
+        {
+          url: 'https://hacks.mozilla.org/2015/05/es6-in-depth-generators/',
+          comment: 'ES6 In Depth: Generators',
+          tags: [TAG_MDN, TAG_ARTICLE]
+        },
+        {
+          url: 'https://hacks.mozilla.org/2015/07/es6-in-depth-generators-continued/',
+          comment: 'ES6 In Depth: Generators, continued',
+          tags: [TAG_MDN, TAG_ARTICLE]
+        },
+        {
+          url: 'http://www.ecma-international.org/ecma-262/6.0/#sec-generator-objects',
+          comment: 'The specification chapter about generators.',
+          tags: [TAG_SPECIFICATION]
+        },
+        {
+          url: 'http://davidwalsh.name/es6-generators',
+          comment: 'The article "The Basics Of ES6 Generators".',
+          tags: [TAG_ARTICLE]
+        }
+      ],
       items: {
         [GENERATOR_CREATION]: {
           name: 'creation',
@@ -587,6 +671,13 @@ export const all = {
             GENERATOR_CREATION,
             GENERATOR_ITERATOR,
             GENERATOR_YIELD
+          ],
+          links: [
+            {
+              url: 'http://www.ecma-international.org/ecma-262/6.0/#sec-generatorresume',
+              comment: 'The part in the spec, that describes how a generator resumes.',
+              tags: [TAG_SPECIFICATION]
+            }
           ]
         },
         [GENERATOR_SEND_FUNCTION]: {
@@ -605,7 +696,7 @@ export const all = {
       }
     },
     
-    'Object API': {
+    'Object': {
       items: {
         [OBJECT_IS]: {
           name: '`Object.is()`',
@@ -648,7 +739,7 @@ export const all = {
       }
     },
     
-    'Reflect API': {
+    'Reflect': {
       items: {
         [REFLECT_BASICS]: {
           name: 'Basics',
@@ -687,8 +778,50 @@ export const all = {
           ]
         }
       }
-    }
+    },
     
+    'Modules': {
+      items: {
+        [MODULES_IMPORT]: {
+          name: '`import` statement',
+          description: 'Use `import` to import functions that have been exported somewhere else.',
+          path: 'modules/import',
+          level: SKILL_LEVEL.BEGINNER,
+          requiresKnowledgeFrom: []
+        }
+      }
+    },
+    
+    'String': {
+      items: {
+        [STRING_INCLUDES]: {
+          name: '`string.includes()`',
+          description: 'Finds string within another string.',
+          path: 'string-api/includes',
+          level: SKILL_LEVEL.BEGINNER,
+          requiresKnowledgeFrom: [
+            LET,
+            CONST,
+            ARROW_FUNCTION_BASICS,
+            DEFAULT_PARAMETERS_BASICS
+          ],
+          links: {
+            documentation: [
+              {
+                url: 'http://www.ecma-international.org/ecma-262/6.0/#sec-string.prototype.includes',
+                comment: 'The official specification, actually quite good to read for this function.',
+                tags: [TAG_SPECIFICATION]
+              },
+              {
+                url: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/includes',
+                comment: 'The Mozilla Developer Network docs, contains good examples.',
+                tags: [TAG_MDN, TAG_DOCS]
+              }
+            ]
+          }
+        }
+      }
+    }
     
   }
 };
