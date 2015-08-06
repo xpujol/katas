@@ -4,21 +4,21 @@
 describe('inside a class use `super` to access parent methods', () => {
 
   it('use of `super` without `extends` fails (already when transpiling)', () => {
-    class A {hasSuper() { return super; }}
+    class A {hasSuper() { return false; }}
     
     assert.equal(new A().hasSuper(), false);
   });
   
   it('`super` with `extends` calls the method of the given name of the parent class', () => {
     class A {hasSuper() { return true; }}
-    class B extends A {hasSuper() { return super.hasSuper; }}
+    class B extends A {hasSuper() { return super.hasSuper(); }}
     
     assert.equal(new B().hasSuper(), true);
   });
   
   it('when overridden a method does NOT automatically call its super method', () => {
     class A {hasSuper() { return true; }}
-    class B extends A {hasSuper() { return 'nothing'; }}
+    class B extends A {hasSuper() { return undefined; }}
     
     assert.equal(new B().hasSuper(), void 0);
   });
@@ -28,7 +28,7 @@ describe('inside a class use `super` to access parent methods', () => {
     class B extends A {constructor() { super(); this.youAreSuper = true; } }
     class C extends B {
       iAmSuper() { 
-        return this.iAmSuper(); 
+        return this.youAreSuper; 
       }
     }
     
@@ -37,7 +37,7 @@ describe('inside a class use `super` to access parent methods', () => {
   
   it('accessing an undefined member of the parent class returns `undefined`', () => {
     class A {}
-    class B extends A {getMethod() { return super.constructor; }}
+    class B extends A {getMethod() { return super.xxx; }}
     
     assert.equal(new B().getMethod(), void 0);
   });
